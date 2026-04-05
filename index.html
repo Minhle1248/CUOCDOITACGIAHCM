@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hồ Chí Minh – Một Cuộc Đời Vì Nước Vì Dân</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  .lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.418);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  cursor: zoom-out;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  transform: scale(0.95);
+  transition: transform 0.3s;
+}
+.lightbox.open img {
+  transform: scale(1);
+}
+/* ─── RESET ─────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background: linear-gradient(180deg, #FAF2DF, #FAE7B9);
+  color:#e8d5a8;
+  font-family:'Be Vietnam Pro',sans-serif;
+  overflow-x:hidden;
+  line-height:1.7;
+  cursor:default;
+}
+
+/* Tạo khung nền cho cụm nội dung Header */
+.header-content-box {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.055); /* Lớp nền trắng siêu mỏng */
+  border: 1px solid rgba(255, 252, 244, 0.329); /* Viền vàng mờ */
+  border-radius: 12px;
+  backdrop-filter: blur(10px); /* Hiệu ứng kính mờ */
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.247);
+  position: relative;
+  z-index: 1;
+}
+/* ─── CSS VARIABLES ──────────────────────── */
+:root{
+  --gold:#c9a84c;
+  --gold-l:#e8c96a;
+  --gold-d:#7a5f28;
+  --cream:#fdf4dd;
+  --cream-d:#c8b08a;
+  --bg:#080603;
+  --bg-card:rgba(16,12,6,.88);
+  --border:rgba(201,168,76,.2);
+  --border-h:rgba(201,168,76,.65);
+  --bark-d:#2e1a0c;
+  --bark:#5c3418;
+  --bark-l:#8b5a2b;
+  --leaf:#2d5016;
+  --leaf-l:#4a7a28;
+  --red:#7a1818;
+  --text:#e8d5a8;
+  --text-d:#8a7040;
+}
+
+/* ─── GRAIN OVERLAY ──────────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:300px;
+}
+
+/* ─── FIXED AMBIENT GLOW ─────────────────── */
+.ambient{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 20%,rgba(255, 255, 255, 0.05) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 60% at 70% 80%,rgba(122, 24, 24, 0) 0%,transparent 70%),
+    radial-gradient(ellipse 80% 80% at 50% 50%,rgba(10,8,4,0) 0%,#080603 100%);
+}
+
+/* ─── FLOATING LEAVES ─── */
+.leaf{position:fixed;pointer-events:none;z-index:6;animation:fall linear infinite;opacity:0}
+@keyframes fall{
+  0%{transform:translateY(-30px) translateX(0) rotate(0deg);opacity:.6}
+  50%{transform:translateY(55vh) translateX(30px) rotate(360deg);opacity:.4}
+  100%{transform:translateY(115vh) translateX(-10px) rotate(720deg);opacity:0}
+}
+
+/* ─── LAYOUT ĐẢO NGƯỢC ──────────────────── */
+#main-wrap {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+/* ─── HEADER ─────────────────────────────── */
+.header{
+  position:relative;text-align:center;
+  padding:210px 20px 70px;z-index:10;
+}
+.header-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 800px;
+  background: radial-gradient(ellipse, rgba(88, 88, 75, 0.479) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: -1;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--gold-l);margin-bottom:28px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.432);
+}
+.eyebrow::before,.eyebrow::after{content:'✦';color:var(--red);font-size:.7rem}
+.main-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(.9rem,5vw,4rem);
+  font-weight:850;color:var(--cream);
+  letter-spacing:-.02em;line-height:1.1;
+  margin-bottom:6px;
+  text-shadow:0 0 80px rgb(255, 235, 182);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.342);
+}
+.main-title em{color:var(--gold-l);font-style:italic}
+.sub{
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:1.2rem;
+  color:var(--text);margin:12px auto 42px;
+  max-width:480px;line-height:1.8;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.281);
+}
+.years-row{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  font-size:.73rem;letter-spacing:.35em;color:var(--gold-d);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.192);
+}
+.years-row span{background:rgba(253, 221, 133, 0.575);border:1px solid rgba(201,168,76,.25);padding:4px 16px;border-radius:2px}
+.years-row::before,.years-row::after{
+  content:'';width:70px;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold-d));
+}
+.years-row::after{background:linear-gradient(90deg,var(--gold-d),transparent)}
+
+/* Lời nhắc cuộn lên */
+.scroll-hint {
+  margin-top: 40px;
+  font-size: 0.8rem;
+  color: var(--gold-d);
+  letter-spacing: 0.1em;
+  animation: bounce 4s infinite;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.24);
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+/* ─── TIMELINE SECTION ───────────────────── */
+.timeline{
+  position:relative;
+  padding:150 0 200px;
+}
+
+.tree-wrap{
+  position:absolute;
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:360px;
+  height:84%;
+  pointer-events:none;
+  z-index:3;
+  will-change:transform;
+}
+.tree-wrap svg{width:100%;height:100%}
+
+.events{
+  position:relative;
+  max-width:1140px;
+  margin:0 auto;
+  padding:0 34px;
+  z-index:10;
+}
+
+.ev{
+  position:relative;
+  display:flex;
+  align-items:center;
+  min-height:450px;
+  margin-bottom:230px;
+}
+.ev.r{flex-direction:row-reverse}
+
+.ev-space{flex:1;min-width:0}
+
+.ev-axis{
+  position:relative;
+  width:140px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  height:100%;
+  align-self:stretch;
+}
+
+.ev-dot{
+  width:16px;height:16px;border-radius:50%;
+  background:var(--gold);
+  border:3px solid var(--bg);
+  box-shadow:0 0 0 2px var(--gold-d),0 0 18px rgba(201,168,76,.35);
+  position:relative;z-index:2;flex-shrink:0;
+  transition:transform .3s ease,box-shadow .3s;
+}
+.ev:hover .ev-dot{
+  transform:scale(1.5);
+  box-shadow:0 0 0 2px var(--gold),0 0 32px rgba(201,168,76,.7);
+}
+
+.ev.l .ev-branch{
+  left:50%;margin-left:8px;
+  background:linear-gradient(90deg,rgba(201,168,76,.4),var(--bark-l));
+}
+.ev.r .ev-branch{
+  right:50%;margin-right:8px;
+  background:linear-gradient(90deg,var(--bark-l),rgba(201,168,76,.4));
+}
+.ev:hover .ev-branch{
+  background:linear-gradient(90deg,var(--gold-d),var(--gold)) !important;
+}
+
+.card{
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 252, 244, 0.329);
+  border-radius: 12px;
+  padding: 45px 48px 28px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  transition: opacity .7s ease, transform .7s cubic-bezier(.22,.68,0,1.2), bo
+}
+.ev.l .card{
+  margin-right:0;margin-left:20px;
+  transform:translateX(36px);
+}
+.ev.r .card{
+  margin-left:0;margin-right:20px;
+  transform:translateX(-36px);
+}
+.card.vis{opacity:1;transform:translateX(0)!important}
+
+.card::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(135deg,rgba(235, 209, 151, 0.322) 0%,transparent 95%);
+}
+.card::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-d),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.card:hover{
+  border-color:var(--border-h);
+  transform:translateY(-5px)!important;
+  box-shadow:0 24px 70px rgba(0, 0, 0, 0.247),0 0 0 1px rgba(201,168,76,.1),inset 0 1px 0 rgba(201,168,76,.08);
+}
+.card:hover::after{opacity:1}
+
+.yr {
+  display: inline-block;
+  font-family: 'Playfair Display', serif;
+  font-size: .7rem;
+  letter-spacing: .32em;
+  color: #7a5f28;
+  background: rgb(0, 0, 0);
+  border: 1px solid rgba(122, 95, 40, 0.2);
+  padding: 3px 12px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+}
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFF8EC;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.637);
+  margin-bottom: 7px;
+  line-height: 1.35;
+}
+.card-desc {
+  font-size: .85rem;
+  color: #f0cda0;
+  line-height: 1.75;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.637);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.thumb-wrap{
+  margin-top:14px;
+  height:110px;
+  overflow:hidden;border-radius:2px;
+  position:relative;
+}
+.thumb{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  filter:sepia(40%) brightness(.85) contrast(1.05);
+  transition:filter .4s ease,transform .5s ease;
+}
+.card:hover .thumb{
+  filter:sepia(10%) brightness(1) contrast(1.05);
+  transform:scale(1.06);
+}
+.thumb-fail{
+  display:none;
+  width:100%;height:100%;
+  background:linear-gradient(135deg,#f3d57a6e,#c9991675);
+  align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:1.8rem;color:var(--gold-d);
+  letter-spacing:.05em;
+  border-radius: 20px;
+}
+.read-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 11px;
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #7a5f28;
+  transition: color .3s;
+}
+.card:hover .read-hint{color:var(--gold)}
+
+/* ─── MODAL ──────────────────────────────── */
+.overlay{
+  position:fixed;inset:0;z-index:1001;
+  background:#00000077;
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  opacity:0;visibility:hidden;
+  transition:opacity .3s,visibility .3s;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(8px);
+}
+.overlay.open{opacity:1;visibility:visible}
+.modal{
+  background: linear-gradient(135deg,#d6c6974f,#d3b45e00);
+  border:1px solid rgba(255, 255, 255, 0.28);
+  border-radius:10px;
+  max-width:1366px;width:100%;
+  max-height:768px;overflow-y:auto;
+  position:relative;
+  transform:scale(.94) translateY(16px);
+  transition:transform .35s cubic-bezier(.22,.68,0,1.2);
+}
+.overlay.open .modal{transform:scale(1) translateY(0)}
+.modal::-webkit-scrollbar{width:3px}
+.modal::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
+
+.close-btn{
+  position:absolute;top:14px;right:14px;z-index:2;
+  background:rgba(255, 255, 255, 0.08);
+  border:1px solid rgba(253, 222, 135, 0.733);
+  color:var(--gold-d);
+  width:34px;height:34px;border-radius:50%;
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.close-btn:hover{background:rgba(255, 255, 255, 0.18);border-color:var(--gold);color:var(--gold)}
+
+.modal-img-wrap{position:relative;height:260px;overflow:hidden}
+.modal-img{
+  width:100%;height:100%;object-fit:cover;
+  display:block;
+  filter:sepia(20%) brightness(.9);
+}
+.modal-img-grad{
+  position:absolute;bottom:0;left:0;right:0;height:100px;
+  background:linear-gradient(to bottom,transparent,#ffffff);
+}
+.modal-body{padding:48px 56px 50px}
+.m-yr{
+  display:block;
+  font-family:'Playfair Display',serif;
+  font-size: 1rem;letter-spacing:.38em;
+  color:var(--gold);margin-bottom:12px;
+}
+.m-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:700;
+  color:var(--cream);line-height:1.2;margin-bottom:24px;
+}
+.m-text{
+  font-size:1.15rem;color:var(--cream-d);
+  line-height:1.95;margin-bottom:36px;
+}
+.m-source{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;
+  border:1px solid rgb(165, 121, 0);
+  color:var(--gold);font-size:.9rem;
+  letter-spacing:.15em;text-transform:uppercase;
+  text-decoration:none;border-radius:4px;
+  transition:all .2s;
+}
+.m-source:hover{background:rgba(201,168,76,.1);border-color:var(--gold)}
+
+/* ─── FOOTER ─────────────────────────────── */
+.footer{
+  text-align:center;
+  padding:56px 20px;
+  border-top:1px solid rgba(201,168,76,.1);
+  color:var(--text-d);
+  font-size:.74rem;letter-spacing:.08em;
+  line-height:2;
+}
+.footer a{color:var(--gold-d);text-decoration:none;transition:color .2s}
+.footer a:hover{color:var(--gold)}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
+
+@media(max-width:720px){
+  .ev{min-height:auto}
+  .ev-space{display:none}
+  .ev,.ev.r{flex-direction:column;align-items:flex-start;padding-left:40px;margin-bottom:44px}
+  .ev-axis{width:50px;position:absolute;left:0;top:0;bottom:0;height:100%}
+  .ev-branch{display:none}
+  .ev.l .card,.ev.r .card{margin:0;width:100%}
+  .modal-body{padding:22px 20px 28px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="ambient"></div>
+
+<div id="main-wrap">
+
+  <header class="header">
+  <div class="header-glow"></div>
+  
+  <div class="header-content-box">
+    <div class="eyebrow">Cuộc Đời Tác Gia Hồ Chí Minh</div>
+    <h1 class="main-title">Tiểu Sử &<br><em>Cuộc Đời Tác Gia Hồ Chí Minh</em></h1>
+    <p class="sub">Hành trình 79 năm của anh hùng dân tộc kiệt xuất, nhà lãnh đạo thiên tài dân tộc của Việt Nam</p>
+    <div class="years-row"><span>1890 — 1969</span></div>
+    <div class="scroll-hint">↑ CUỘN LÊN ĐỂ BẮT ĐẦU ↑</div>
+  </div>
+  </header>
+
+  <section class="timeline" id="timeline">
+    <div class="tree-wrap" id="treeWrap">
+      <svg id="treeSvg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
+    </div>
+    <div class="events" id="events"></div>
+  </section>
+
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <button class="close-btn" id="closeBtn" aria-label="Đóng">✕</button>
+    <div class="modal-img-wrap">
+      <img class="modal-img" id="mImg" src="" alt="">
+      <div class="modal-img-grad"></div>
+    </div>
+    <div class="modal-body">
+      <span class="m-yr" id="mYr"></span>
+      <h2 class="m-title" id="mTitle"></h2>
+      <p class="m-text" id="mText"></p>
+      <a class="m-source" id="mSrc" href="#" target="_blank" rel="noopener noreferrer">↗ Đọc thêm tại nguồn</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Tổng hợp từ <a href="https://vi.wikipedia.org/wiki/H%E1%BB%93_Ch%C3%AD_Minh" target="_blank">Wikipedia Tiếng Việt</a> · <a href="https://baotanghochiminh.vn/" target="_blank">Bảo tàng Hồ Chí Minh</a> · <a href="https://www.nhandan.vn/" target="_blank">Báo Nhân Dân</a></p>
+  <p style="margin-top:8px;font-size:.68rem">Nhóm 6 - Lớp 12A3 - THPT Bạc Liêu</p>
+</footer>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+  const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+const EVENTS = [
+  {
+    year:"1890",
+    title:"Quê Quán, Năm Sinh",
+    short:"Nguyễn Sinh Cung: tên khai sinh của Bác — Sinh ngày 19 tháng 5 năm 1890.",
+    full:`Nguyễn Sinh Cung (tên khai sinh) sinh ngày 19 tháng 5 năm 1890 tại làng Kim Liên (Làng Sen), xã Kim Liên, huyện Nam Đàn, tỉnh Nghệ An. Cha là cụ Phó bảng Nguyễn Sinh Sắc — một nhà nho yêu nước sâu sắc. Từ vùng đất lam lũ mà kiên cường này, ngọn lửa yêu nước đã được thắp sáng trong tâm hồn người con trai nhỏ từ những ngày thơ ấu, đặt nền tảng cho cả cuộc đời cống hiến vĩ đại về sau.`,
+    link:"https://statics.vinpearl.com/khu-di-tich-lich-su-kim-lien-2_1634539627.jpg",
+  },
+  {
+    year:"5/6/1911",
+    title:"Ra đi tìm đường cứu nước từ Bến Nhà Rồng",
+    short:"Với cái tên Văn Ba, Người xuống tàu Amiral Latouche-Tréville bắt đầu hành trình vòng quanh thế giới.",
+    full:`Ngày 5 tháng 6 năm 1911, với cái tên Văn Ba, Nguyễn Tất Thành xuống tàu Amiral Latouche-Tréville tại Bến Nhà Rồng (Sài Gòn) — chính thức bắt đầu hành trình bôn ba khắp năm châu để tìm con đường giải phóng dân tộc khỏi ách thực dân. Trong những năm tiếp theo, Người đặt chân đến hàng chục quốc gia ở châu Phi, châu Mỹ, châu Âu, làm đủ mọi nghề từ phụ bếp, làm ảnh, bồi bàn để kiếm sống và học hỏi. Bến Nhà Rồng trở thành biểu tượng của khởi đầu một cuộc đời cách mạng vĩ đại.`,
+    link:"https://tinhdoanquangninh.vn/wp-content/uploads/2022/06/ben-nha-rong-050622.jpg",
+  },
+  {
+    year:"1911 – 1923",
+    title:"Giai đoạn hoạt động tại Pháp, đặc biệt từ 1919-1923",
+    short:"Tại Paris, Nguyễn Ái Quốc tiếp cận chủ nghĩa Mác-Lênin và trở thành người sáng lập Đảng Cộng sản Pháp.",
+    full:`Tại Pháp, với bút danh Nguyễn Ái Quốc, Người tham gia phong trào công nhân, viết báo La Paria, gửi Bản yêu sách 8 điểm đến Hội nghị Versailles năm 1919. Năm 1920, Người đọc Luận cương về vấn đề dân tộc và thuộc địa của Lenin — một khoảnh khắc giác ngộ lịch sử. Tại Đại hội Tours tháng 12/1920, Người bỏ phiếu gia nhập Quốc tế Cộng sản và trở thành một trong những người sáng lập Đảng Cộng sản Pháp. Từ đây, con đường cứu nước gắn liền với chủ nghĩa Mác-Lênin và cuộc đấu tranh giải phóng giai cấp toàn cầu.`,
+    link:"https://file3.qdnd.vn/data/images/0/2021/06/02/vanphong/nguyen%20ai%20quoc%20phat%20bieu%20tai%20dai%20hoi%20dai%20bieu%20toan%20quoc%20lan%20thu%2018%20dang%20xa%20hoi%20phap.jpg?dpi=150&quality=100&w=1920",
+  },
+  {
+    year:"3/2/1930",
+    title:"Đảng Cộng sản Việt Nam được thành lập ngày 3/2/1930",
+    short:"Nguyễn Ái Quốc chủ trì hội nghị hợp nhất các tổ chức cộng sản trong nước, thành lập Đảng Cộng sản Việt Nam.",
+    full:`Ngày 3 tháng 2 năm 1930, tại Cửu Long (Hồng Kông), Nguyễn Ái Quốc chủ trì hội nghị hợp nhất Đông Dương Cộng sản Đảng, An Nam Cộng sản Đảng và Đông Dương Cộng sản Liên đoàn thành Đảng Cộng sản Việt Nam. Đây là bước ngoặt lịch sử — lần đầu tiên giai cấp công nhân và nhân dân lao động Việt Nam có một chính đảng Mác-xít thống nhất lãnh đạo phong trào cách mạng. Cương lĩnh đầu tiên do Nguyễn Ái Quốc soạn thảo đề ra mục tiêu đánh đổ đế quốc Pháp và giành độc lập dân tộc.`,
+    link:"https://daknong.1cdn.vn/2023/02/03/baolamdong.vn-file-e7837c02845ffd04018473e6df282e92-022023-_anh-1-08_20230202190934.jpg",
+  },
+  {
+    year:"2/1941",
+    title:"Trở về nước, lãnh đạo cách mạng tại Pác Bó",
+    short:"Sau 30 năm xa Tổ quốc, Người bí mật trở về qua biên giới Cao Bằng, đặt căn cứ tại hang Pắc Bó.",
+    full:`Tháng 2 năm 1941, sau 30 năm bôn ba hải ngoại, Hồ Chí Minh bí mật vượt biên giới Cao Bằng trở về Tổ quốc. Người đặt căn cứ địa cách mạng tại hang Pắc Bó — dịch tên ra là "Đầu nguồn". Tại đây, sống giữa rừng núi, ăn cháo ngô, Người trực tiếp lãnh đạo Mặt trận Việt Minh, huấn luyện cán bộ, soạn thảo tài liệu tuyên truyền. Người đặt tên con suối là Lênin, đỉnh núi là Mác — thể hiện niềm tin vững chắc vào con đường cách mạng mà Người đã chọn. Đây là giai đoạn chuẩn bị tích cực nhất cho Tổng khởi nghĩa tháng Tám 1945.`,
+    link:"https://file3.qdnd.vn/data/images/3/2024/09/03/upload_2059/ho%20chi%20minh.jpg",
+  },
+  {
+    year:"2/9/1945",
+    title:"Bác đọc Tuyên ngôn Độc lập, khai sinh ra nước Việt Nam",
+    short:"Tại Quảng trường Ba Đình, Hồ Chí Minh đọc Tuyên ngôn Độc lập trước hàng chục vạn đồng bào.",
+    full:`Ngày 2 tháng 9 năm 1945, trước hàng chục vạn đồng bào tại Quảng trường Ba Đình (Hà Nội), Chủ tịch Hồ Chí Minh đọc Tuyên ngôn Độc lập — khai sinh nước Việt Nam Dân chủ Cộng hòa. Bản tuyên ngôn bất hủ mở đầu bằng trích dẫn từ Tuyên ngôn Độc lập Hoa Kỳ 1776 và Tuyên ngôn Nhân quyền và Dân quyền Pháp 1789 — khẳng định giá trị nhân phẩm và quyền tự quyết của dân tộc Việt Nam trước toàn nhân loại. Đây là kết quả của 79 năm đô hộ bị xóa bỏ, và mở ra kỷ nguyên mới của đất nước Việt Nam độc lập.`,
+    link:"https://file3.qdnd.vn/data/images/0/2022/09/01/tvkimgiang/bac%20ho%20doc%20tuyen%20ngon.jpg",
+  },
+  {
+    year:"1946 – 1954",
+    title:"Kháng chiến chống thực dân Pháp",
+    short:"Quân và dân Việt Nam dưới sự lãnh đạo của Hồ Chủ tịch tiến hành 9 năm kháng chiến trường kỳ.",
+    full:`Dưới sự lãnh đạo của Chủ tịch Hồ Chí Minh, quân và dân Việt Nam tiến hành cuộc kháng chiến 9 năm chống thực dân Pháp xâm lược. Với chiến lược "toàn dân, toàn diện, trường kỳ kháng chiến", Người kêu gọi "Thà hy sinh tất cả, chứ nhất định không chịu mất nước, nhất định không chịu làm nô lệ". Đỉnh cao là chiến thắng Điện Biên Phủ lịch sử ngày 7/5/1954 — "lừng lẫy năm châu, chấn động địa cầu" — buộc Pháp ký Hiệp định Genève, thừa nhận độc lập, chủ quyền của Việt Nam, Lào và Campuchia.`,
+    link:"https://media.vietnamplus.vn/images/7255a701687d11cb8c6bbc58a6c80785d821f83014ba46a69797a90a36f57d1a9ed9e5129bda94da5f304a59d91a09ad3baf0aa24dfd57111e811a4b44265e78/0705hochiminh4.jpg",
+  },
+  {
+    year:"1954 – 1969",
+    title:"Lãnh đạo XHCN miền Bắc và kháng chiến chống Mỹ",
+    short:"Vừa xây dựng miền Bắc XHCN, vừa chỉ đạo kháng chiến chống Mỹ ở miền Nam.",
+    full:`Sau Hiệp định Genève, Hồ Chí Minh lãnh đạo miền Bắc tiến lên xây dựng chủ nghĩa xã hội, đồng thời chỉ đạo phong trào giải phóng miền Nam thống nhất đất nước. Dù tuổi cao sức yếu, Người vẫn miệt mài đến các cơ sở sản xuất, thăm bộ đội, động viên đồng bào. Uy tín quốc tế của Người lan rộng — trở thành biểu tượng của phong trào giải phóng dân tộc toàn cầu. Nhiều lần Người từ chối các đặc quyền của nguyên thủ quốc gia, sống giản dị trong ngôi nhà sàn nhỏ bên Hồ Tây, Hà Nội.`,
+    link:"https://media.vietnamplus.vn/images/7255a701687d11cb8c6bbc58a6c80785c531738e3787169ce34b631b27454b96293efe9f02a123fb7bd3cd45e79b779c4f9efb0c8972265f49d8f86164867992/bac_ho_3_1.jpg",
+  },
+  {
+    year:"2/9/1969",
+    title:"Người ra đi, để lại Di chúc cho muôn đời sau",
+    short:"Hồ Chí Minh từ trần lúc 9 giờ 47 phút, hưởng thọ 79 tuổi. Bản Di chúc Người để lại là ánh sáng soi đường cho dân tộc.",
+    full:`Hồ Chí Minh từ trần lúc 9 giờ 47 phút ngày 2 tháng 9 năm 1969 — đúng 24 năm ngày Người đọc Tuyên ngôn Độc lập — hưởng thọ 79 tuổi. Bản Di chúc được Người viết từ năm 1965 đến 1969 thể hiện ý chí sắt đá: "Cuộc kháng chiến chống Mỹ có thể còn kéo dài... Dù khó khăn gian khổ đến mấy, nhân dân ta nhất định sẽ hoàn toàn thắng lợi." Người mong được hỏa táng và tro rải xuống các ngọn đồi, nhưng nguyện vọng này chưa được thực hiện. Lăng Chủ tịch Hồ Chí Minh ở Ba Đình là nơi hàng triệu người Việt và bạn bè quốc tế đến viếng thăm mỗi năm.`,
+    link:"https://photo.znews.vn/w660/Uploaded/ywfau/2014_08_25/di_chuc.jpg",
+  }
+];
+
+const eventsEl = document.getElementById('events');
+
+// Đảo ngược mảng sự kiện để chèn vào HTML từ mới tới cũ (1969 trên cùng, 1890 dưới cùng)
+[...EVENTS].reverse().forEach((ev, i) => {
+  const row = document.createElement('div');
+  const side = i % 2 === 0 ? 'l' : 'r'; 
+  row.className = `ev ${side}`;
+
+  // Cần tìm lại index thật của sự kiện trong mảng gốc để mở modal cho chuẩn
+  const realIndex = EVENTS.findIndex(e => e.title === ev.title);
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.i = realIndex;
+  card.innerHTML = `
+    <div class="yr">${ev.year}</div>
+    <div class="card-title">${ev.title}</div>
+    <div class="card-desc">${ev.short}</div>
+    <div class="thumb-wrap">
+      <img class="thumb" src="${ev.img}" alt="${ev.title}"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="thumb-fail">${ev.year.slice(0,15)}</div>
+    </div>
+    <span class="read-hint">Xem chi tiết ↗</span>
+  `;
+
+  const axis = document.createElement('div');
+  axis.className = 'ev-axis';
+  axis.innerHTML = ``;
+
+  const space = document.createElement('div');
+  space.className = 'ev' + String.fromCharCode(45) + 'space';
+  space.style.display = 'flex';
+  space.style.alignItems = 'center';
+  space.style.justifyContent = 'center';
+  space.style.padding = '0 20px';
+
+  const myImg = document.createElement('img');
+  myImg.src = ev.link;
+  myImg.style.width = '100%';
+  myImg.style.maxWidth = '580px';
+  myImg.style.height = '340px';
+  myImg.style.objectFit = 'cover';
+  myImg.style.borderRadius = '12px';
+  myImg.style.opacity = '0.85';
+  myImg.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+
+  myImg.style.transition = 'all 0.4s';
+
+  myImg.onmouseover = function() { 
+    this.style.transform = 'scale(1.08)'; 
+    this.style.opacity = '1';
+};
+myImg.style.cursor = 'zoom-in';
+myImg.onclick = function() {
+  document.getElementById('lbImg').src = this.src;
+  document.getElementById('lightbox').classList.add('open');
+};
+myImg.onmouseout = function() { 
+  this.style.transform = 'scale(1)'; 
+  this.style.opacity = '0.85';
+};
+  space.appendChild(myImg);
+  space.className = 'ev-space';
+
+  // Luôn chèn thứ tự chuẩn, CSS flex row-reverse sẽ lật tự động
+  row.appendChild(card);
+  row.appendChild(axis);
+  row.appendChild(space);
+
+  eventsEl.appendChild(row);
+});
+
+function buildTree() {
+  const svg = document.getElementById('treeSvg');
+  const tl = document.getElementById('timeline');
+  const H = tl.offsetHeight;
+  const W = 140;
+  const cx = W / 2;
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="trunkG" x1="0" y1="${H}" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#1e0e06"/>
+        <stop offset="35%" stop-color="#3d2010"/>
+        <stop offset="70%" stop-color="#5c3418"/>
+        <stop offset="100%" stop-color="#7a4a22"/>
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="2" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+  `;
+
+  const trunkPath = `
+    M ${cx} ${H}
+    C ${cx-40} ${H*.80} ${cx+45} ${H*.60} ${cx-15} ${H*.42}
+    C ${cx-50} ${H*.28} ${cx+40} ${H*.16} ${cx} ${H*.06}
+    C ${cx-10} ${H*.02} ${cx} 0 ${cx} 0
+  `;
+  
+  const trunk = makeSvg('path');
+  trunk.setAttribute('d', trunkPath);
+  trunk.setAttribute('fill','none');
+  trunk.setAttribute('stroke','url(#trunkG)');
+  trunk.setAttribute('stroke-width','14');
+  trunk.setAttribute('stroke-linecap','round');
+  trunk.setAttribute('stroke-linejoin','round');
+  svg.appendChild(trunk);
+
+  const highlight = makeSvg('path');
+  highlight.setAttribute('d', trunkPath);
+  highlight.setAttribute('fill','none');
+  highlight.setAttribute('stroke','rgba(201,168,76,.08)');
+  highlight.setAttribute('stroke-width','4');
+  highlight.setAttribute('stroke-linecap','round');
+  svg.appendChild(highlight);
+
+  const cards = eventsEl.querySelectorAll('.card');
+  cards.forEach((card, i) => {
+    const cardTop = card.closest('.ev').offsetTop;
+    const cardMid = cardTop + card.closest('.ev').offsetHeight / 2;
+    const y = cardMid;
+    const side = i % 2 === 0 ? 'l' : 'r'; 
+    const dir = side === 'l' ? -1 : 1; 
+    const bLen = 48; 
+
+    const br = makeSvg('path');
+    br.setAttribute('d', `M ${cx} ${y} Q ${cx + dir*20} ${y} ${cx + dir*bLen} ${y}`);
+    br.setAttribute('fill','none');
+    br.setAttribute('stroke', '#5c3418');
+    br.setAttribute('stroke-width','3');
+    br.setAttribute('stroke-linecap','round');
+    br.setAttribute('opacity','0.8');
+    svg.appendChild(br);
+  });
+}
+
+function makeSvg(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+const treeWrap = document.getElementById('treeWrap');
+const timelineEl = document.getElementById('timeline');
+function onScroll() {
+  const tTop = timelineEl.getBoundingClientRect().top + window.scrollY;
+  const rel = window.scrollY - tTop;
+  if (rel > -200 && rel < timelineEl.offsetHeight + 200) {
+    const shift = rel * 0.22;
+    treeWrap.style.transform = `translateX(-50%) translateY(${shift}px)`;
+  }
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.card').forEach(c => revealObs.observe(c));
+
+const overlay = document.getElementById('overlay');
+const mImg    = document.getElementById('mImg');
+const mYr     = document.getElementById('mYr');
+const mTitle  = document.getElementById('mTitle');
+const mText   = document.getElementById('mText');
+const mSrc    = document.getElementById('mSrc');
+
+function openModal(i) {
+  const ev = EVENTS[i];
+  mImg.src = ev.img;
+  mImg.alt = ev.title;
+  mImg.onerror = () => { mImg.parentElement.style.display = 'none'; };
+  mImg.parentElement.style.display = '';
+  mYr.textContent = ev.year;
+  mTitle.textContent = ev.title;
+  mText.textContent = ev.full;
+  mSrc.href = ev.src;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { overlay.classList.remove('open'); document.body.style.overflow = ''; }
+document.querySelectorAll('.card').forEach(c => { c.addEventListener('click', () => openModal(+c.dataset.i)); });
+document.getElementById('closeBtn').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+const LEAF_COLORS = ['#2d5016','#3d6820','#4a7a28','#5a9030','#1e3a0e'];
+const LEAF_SHAPES = ['M10,2 Q18,8 10,18 Q2,8 10,2','M10,1 Q20,6 16,14 Q10,20 4,14 Q0,6 10,1','M10,3 Q17,5 15,12 Q12,18 10,20 Q8,18 5,12 Q3,5 10,3'];
+function spawnLeaf() {
+  const leaf = document.createElement('div');
+  leaf.className = 'leaf';
+  const color = LEAF_COLORS[Math.floor(Math.random() * LEAF_COLORS.length)];
+  const shape = LEAF_SHAPES[Math.floor(Math.random() * LEAF_SHAPES.length)];
+  const size  = 10 + Math.random() * 10;
+  leaf.style.cssText = `left:${5 + Math.random()*90}vw; top:-20px; width:${size}px; height:${size}px; animation-duration:${10 + Math.random()*14}s; animation-delay:${Math.random()*2}s;`;
+  leaf.innerHTML = `<svg viewBox="0 0 20 20" width="${size}" height="${size}"><path d="${shape}" fill="${color}" opacity="${(.35+Math.random()*.45).toFixed(2)}"/></svg>`;
+  document.body.appendChild(leaf);
+  setTimeout(() => leaf.remove(), 26000);
+}
+setInterval(spawnLeaf, 2800);
+spawnLeaf(); spawnLeaf(); spawnLeaf();
+
+// Khởi chạy
+window.addEventListener('load', () => { 
+  requestAnimationFrame(() => { 
+    buildTree(); 
+    onScroll(); 
+    
+    // Tự động cuộn xuống đáy màn hình sau khi mọi thứ render xong
+    setTimeout(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    }, 150);
+  }); 
+});
+
+let resizeTimer;
+window.addEventListener('resize', () => { 
+  clearTimeout(resizeTimer); 
+  resizeTimer = setTimeout(() => {
+    buildTree();
+    window.scrollTo(0, document.body.scrollHeight);
+  }, 250); 
+});
+</script>
+</body>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lbImg" src="" alt="">
+</div>
+</html>
