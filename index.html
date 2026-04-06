@@ -13,7 +13,7 @@
   background: rgba(0, 0, 0, 0.418);
   z-index: 9999;
   display: flex;
-  align-items: center;
+  align-items: auto;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
@@ -36,7 +36,6 @@
 .lightbox.open img {
   transform: scale(1);
 }
-/* ─── RESET ─────────────────────────────── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -62,7 +61,6 @@ body{
   position: relative;
   z-index: 1;
 }
-/* ─── CSS VARIABLES ──────────────────────── */
 :root{
   --gold:#c9a84c;
   --gold-l:#e8c96a;
@@ -82,8 +80,6 @@ body{
   --text:#e8d5a8;
   --text-d:#8a7040;
 }
-
-/* ─── GRAIN OVERLAY ──────────────────────── */
 body::before{
   content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
   opacity:.025;
