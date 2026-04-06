@@ -13,7 +13,7 @@
   background: rgba(0, 0, 0, 0.418);
   z-index: 9999;
   display: flex;
-  align-items: auto;
+  align-items: center;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
@@ -39,30 +39,35 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
+  zoom: 1.3;
   background-color: #080603;
-  background-image: url('https://maisonoffice.vn/wp-content/uploads/2024/01/12-ban-do-dia-hinh-viet-nam-3d.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  backdrop-filter: blur(5px);
   color: #e8d5a8;
   font-family: 'Be Vietnam Pro', sans-serif;
   overflow-x: hidden;
   line-height: 1.7;
   cursor: default;
 }
-
-
-/* Tạo khung nền cho cụm nội dung Header */
+.bg-image {
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -200px;
+  z-index: -2;
+  background-image: url('https://maisonoffice.vn/wp-content/uploads/2024/01/12-ban-do-dia-hinh-viet-nam-3d.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  will-change: transform;
+}
 .header-content-box {
   max-width: 900px;
   margin: 0 auto;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.055); /* Lớp nền trắng siêu mỏng */
-  border: 1px solid rgba(255, 252, 244, 0.329); /* Viền vàng mờ */
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 252, 244, 0.329);
   border-radius: 12px;
-  backdrop-filter: blur(10px); /* Hiệu ứng kính mờ */
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.247);
   position: relative;
@@ -93,8 +98,6 @@ body::before{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size:300px;
 }
-
-/* ─── FIXED AMBIENT GLOW ─────────────────── */
 .ambient{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
@@ -102,22 +105,16 @@ body::before{
     radial-gradient(ellipse 40% 60% at 70% 80%,rgba(122, 24, 24, 0) 0%,transparent 70%),
     radial-gradient(ellipse 80% 80% at 50% 50%,rgba(10,8,4,0) 0%,#080603 100%);
 }
-
-/* ─── FLOATING LEAVES ─── */
 .leaf{position:fixed;pointer-events:none;z-index:6;animation:fall linear infinite;opacity:0}
 @keyframes fall{
   0%{transform:translateY(-30px) translateX(0) rotate(0deg);opacity:.6}
   50%{transform:translateY(55vh) translateX(30px) rotate(360deg);opacity:.4}
   100%{transform:translateY(115vh) translateX(-10px) rotate(720deg);opacity:0}
 }
-
-/* ─── LAYOUT ĐẢO NGƯỢC ──────────────────── */
 #main-wrap {
   display: flex;
   flex-direction: column-reverse;
 }
-
-/* ─── HEADER ─────────────────────────────── */
 .header{
   position:relative;text-align:center;
   padding:210px 20px 70px;z-index:10;
@@ -146,8 +143,7 @@ body::before{
   font-weight:850;color:var(--cream);
   letter-spacing:-.02em;line-height:1.1;
   margin-bottom:6px;
-  text-shadow:0 0 80px rgb(255, 235, 182);
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.342);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.342), 0 0 80px rgb(255, 235, 182);
 }
 .main-title em{color:var(--gold-l);font-style:italic}
 .sub{
@@ -168,14 +164,12 @@ body::before{
   background:linear-gradient(90deg,transparent,var(--gold-d));
 }
 .years-row::after{background:linear-gradient(90deg,var(--gold-d),transparent)}
-
-/* Lời nhắc cuộn lên */
 .scroll-hint {
   margin-top: 40px;
   font-size: 0.8rem;
-  color: var(--gold-d);
+  color: #FFF8EC;
   letter-spacing: 0.1em;
-  animation: bounce 4s infinite;
+  animation: bounce 8s infinite;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.24);
 }
 @keyframes bounce {
@@ -183,13 +177,10 @@ body::before{
   40% { transform: translateY(-10px); }
   60% { transform: translateY(-5px); }
 }
-
-/* ─── TIMELINE SECTION ───────────────────── */
 .timeline{
   position:relative;
-  padding:150 0 200px;
+  padding:150px 0 200px;
 }
-
 .tree-wrap{
   position:absolute;
   top:0;left:50%;
@@ -201,7 +192,6 @@ body::before{
   will-change:transform;
 }
 .tree-wrap svg{width:100%;height:100%}
-
 .events{
   position:relative;
   max-width:1140px;
@@ -209,18 +199,15 @@ body::before{
   padding:0 34px;
   z-index:10;
 }
-
 .ev{
   position:relative;
   display:flex;
   align-items:center;
-  min-height:450px;
+  min-height:410px;
   margin-bottom:230px;
 }
 .ev.r{flex-direction:row-reverse}
-
 .ev-space{flex:1;min-width:0}
-
 .ev-axis{
   position:relative;
   width:140px;flex-shrink:0;
@@ -228,7 +215,6 @@ body::before{
   height:100%;
   align-self:stretch;
 }
-
 .ev-dot{
   width:16px;height:16px;border-radius:50%;
   background:var(--gold);
@@ -241,7 +227,6 @@ body::before{
   transform:scale(1.5);
   box-shadow:0 0 0 2px var(--gold),0 0 32px rgba(201,168,76,.7);
 }
-
 .ev.l .ev-branch{
   left:50%;margin-left:8px;
   background:linear-gradient(90deg,rgba(201,168,76,.4),var(--bark-l));
@@ -253,7 +238,6 @@ body::before{
 .ev:hover .ev-branch{
   background:linear-gradient(90deg,var(--gold-d),var(--gold)) !important;
 }
-
 .card{
   flex: 1;
   min-width: 0;
@@ -268,7 +252,7 @@ body::before{
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   opacity: 0;
-  transition: opacity .7s ease, transform .7s cubic-bezier(.22,.68,0,1.2), bo
+  transition: opacity .7s ease, transform .7s cubic-bezier(.22,.68,0,1.2), border-color .3s, box-shadow .3s;
 }
 .ev.l .card{
   margin-right:0;margin-left:20px;
@@ -279,7 +263,6 @@ body::before{
   transform:translateX(-36px);
 }
 .card.vis{opacity:1;transform:translateX(0)!important}
-
 .card::before{
   content:'';position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(135deg,rgba(235, 209, 151, 0.322) 0%,transparent 95%);
@@ -297,7 +280,6 @@ body::before{
   box-shadow:0 24px 70px rgba(0, 0, 0, 0.247),0 0 0 1px rgba(201,168,76,.1),inset 0 1px 0 rgba(201,168,76,.08);
 }
 .card:hover::after{opacity:1}
-
 .yr {
   display: inline-block;
   font-family: 'Playfair Display', serif;
@@ -331,19 +313,19 @@ body::before{
 }
 .thumb-wrap{
   margin-top:14px;
-  height:110px;
-  overflow:hidden;border-radius:2px;
+  height:180px;
+  overflow:hidden;border-radius:12px;
   position:relative;
 }
 .thumb{
-  width:100%;height:100%;object-fit:cover;
+  width:120%;height:130%;object-fit:cover;
   display:block;
   filter:sepia(40%) brightness(.85) contrast(1.05);
   transition:filter .4s ease,transform .5s ease;
 }
 .card:hover .thumb{
   filter:sepia(10%) brightness(1) contrast(1.05);
-  transform:scale(1.06);
+  transform:scale(1);
 }
 .thumb-fail{
   display:none;
@@ -363,12 +345,10 @@ body::before{
   font-size: .68rem;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: #7a5f28;
+  color: #ffffff;
   transition: color .3s;
 }
 .card:hover .read-hint{color:var(--gold)}
-
-/* ─── MODAL ──────────────────────────────── */
 .overlay{
   position:fixed;inset:0;z-index:1001;
   background:#00000077;
@@ -389,10 +369,10 @@ body::before{
   transform:scale(.94) translateY(16px);
   transition:transform .35s cubic-bezier(.22,.68,0,1.2);
 }
+
 .overlay.open .modal{transform:scale(1) translateY(0)}
 .modal::-webkit-scrollbar{width:3px}
 .modal::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
-
 .close-btn{
   position:absolute;top:14px;right:14px;z-index:2;
   background:rgba(255, 255, 255, 0.08);
@@ -405,17 +385,7 @@ body::before{
 }
 .close-btn:hover{background:rgba(255, 255, 255, 0.18);border-color:var(--gold);color:var(--gold)}
 
-.modal-img-wrap{position:relative;height:260px;overflow:hidden}
-.modal-img{
-  width:100%;height:100%;object-fit:cover;
-  display:block;
-  filter:sepia(20%) brightness(.9);
-}
-.modal-img-grad{
-  position:absolute;bottom:0;left:0;right:0;height:100px;
-  background:linear-gradient(to bottom,transparent,#ffffff);
-}
-.modal-body{padding:48px 56px 50px}
+.modal-body{padding:48px 50px 50px}
 .m-yr{
   display:block;
   font-family:'Playfair Display',serif;
@@ -431,33 +401,19 @@ body::before{
   font-size:1.15rem;color:var(--cream-d);
   line-height:1.95;margin-bottom:36px;
 }
-.m-source{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:12px 28px;
-  border:1px solid rgb(165, 121, 0);
-  color:var(--gold);font-size:.9rem;
-  letter-spacing:.15em;text-transform:uppercase;
-  text-decoration:none;border-radius:4px;
-  transition:all .2s;
-}
-.m-source:hover{background:rgba(201,168,76,.1);border-color:var(--gold)}
-
-/* ─── FOOTER ─────────────────────────────── */
 .footer{
   text-align:center;
   padding:56px 20px;
-  border-top:1px solid rgba(201,168,76,.1);
+  border-top:2px solid rgba(201, 168, 76, 0.486);
   color:var(--text-d);
   font-size:.74rem;letter-spacing:.08em;
   line-height:2;
 }
-.footer a{color:var(--gold-d);text-decoration:none;transition:color .2s}
+.footer a{color: #fff8ec ;text-decoration:none;transition:color .2s}
 .footer a:hover{color:var(--gold)}
-
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--gold-d);border-radius:2px}
-
 @media(max-width:720px){
   .ev{min-height:auto}
   .ev-space{display:none}
@@ -469,34 +425,28 @@ body::before{
 }
 </style>
 </head>
-
 <body>
-
+<div class="bg-image"></div>
 <div class="ambient"></div>
-
+<div class="ambient"></div>
 <div id="main-wrap">
-
   <header class="header">
   <div class="header-glow"></div>
-  
   <div class="header-content-box">
     <div class="eyebrow">Cuộc Đời Tác Gia Hồ Chí Minh</div>
-    <h1 class="main-title">Tiểu Sử &<br><em>Cuộc Đời Tác Gia Hồ Chí Minh</em></h1>
-    <p class="sub">Hành trình 79 năm của anh hùng dân tộc kiệt xuất, nhà lãnh đạo thiên tài dân tộc của Việt Nam</p>
+    <h1 class="main-title">Tiểu Sử &<br><em>Cuộc Đời Tác Gia<br>Hồ Chí Minh</em></h1>
+    <p class="sub">Hành trình 79 năm của anh hùng dân tộc kiệt xuất, nhà lãnh đạo thiên tài của dân tộc Việt Nam</p>
     <div class="years-row"><span>1890 — 1969</span></div>
     <div class="scroll-hint">↑ CUỘN LÊN ĐỂ BẮT ĐẦU ↑</div>
   </div>
   </header>
-
   <section class="timeline" id="timeline">
     <div class="tree-wrap" id="treeWrap">
       <svg id="treeSvg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"></svg>
     </div>
     <div class="events" id="events"></div>
   </section>
-
 </div>
-
 <div class="overlay" id="overlay" role="dialog" aria-modal="true">
   <div class="modal" id="modal">
     <button class="close-btn" id="closeBtn" aria-label="Đóng">✕</button>
@@ -508,14 +458,15 @@ body::before{
       <span class="m-yr" id="mYr"></span>
       <h2 class="m-title" id="mTitle"></h2>
       <p class="m-text" id="mText"></p>
-      <a class="m-source" id="mSrc" href="#" target="_blank" rel="noopener noreferrer">↗ Đọc thêm tại nguồn</a>
     </div>
   </div>
 </div>
-
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lbImg" src="" alt="">
+</div>
 <footer class="footer">
-  <p>Tổng hợp từ <a href="https://vi.wikipedia.org/wiki/H%E1%BB%93_Ch%C3%AD_Minh" target="_blank">Wikipedia Tiếng Việt</a> · <a href="https://baotanghochiminh.vn/" target="_blank">Bảo tàng Hồ Chí Minh</a> · <a href="https://www.nhandan.vn/" target="_blank">Báo Nhân Dân</a></p>
-  <p style="margin-top:8px;font-size:.68rem">Nhóm 6 - Lớp 12A3 - THPT Bạc Liêu</p>
+  <p style="color:#fff8ec";>Tổng hợp từ <a href="https://vi.wikipedia.org/wiki/H%E1%BB%93_Ch%C3%AD_Minh" target="_blank">Wikipedia Tiếng Việt</a> · <a href="https://baotanghochiminh.vn/" target="_blank">Bảo tàng Hồ Chí Minh</a> · <a href="https://www.nhandan.vn/" target="_blank">Báo Nhân Dân</a></p>
+  <p style="margin-top:8px;font-size:.68rem;color:#fff8ec;">Nhóm 6 - Lớp 12A3 - THPT Bạc Liêu</p>
 </footer>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
@@ -524,7 +475,6 @@ body::before{
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smoothWheel: true
 });
-
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);
@@ -595,18 +545,12 @@ const EVENTS = [
     link:"https://photo.znews.vn/w660/Uploaded/ywfau/2014_08_25/di_chuc.jpg",
   }
 ];
-
 const eventsEl = document.getElementById('events');
-
-// Đảo ngược mảng sự kiện để chèn vào HTML từ mới tới cũ (1969 trên cùng, 1890 dưới cùng)
 [...EVENTS].reverse().forEach((ev, i) => {
   const row = document.createElement('div');
-  const side = i % 2 === 0 ? 'l' : 'r'; 
+  const side = i % 2 === 0 ? 'l' : 'r';
   row.className = `ev ${side}`;
-
-  // Cần tìm lại index thật của sự kiện trong mảng gốc để mở modal cho chuẩn
   const realIndex = EVENTS.findIndex(e => e.title === ev.title);
-
   const card = document.createElement('div');
   card.className = 'card';
   card.dataset.i = realIndex;
@@ -615,24 +559,21 @@ const eventsEl = document.getElementById('events');
     <div class="card-title">${ev.title}</div>
     <div class="card-desc">${ev.short}</div>
     <div class="thumb-wrap">
-      <img class="thumb" src="${ev.img}" alt="${ev.title}"
+      <img class="thumb" src="${ev.link}" alt="${ev.title}"
         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="thumb-fail">${ev.year.slice(0,15)}</div>
     </div>
     <span class="read-hint">Xem chi tiết ↗</span>
   `;
-
   const axis = document.createElement('div');
   axis.className = 'ev-axis';
   axis.innerHTML = ``;
-
   const space = document.createElement('div');
-  space.className = 'ev' + String.fromCharCode(45) + 'space';
+  space.className = 'ev-space';
   space.style.display = 'flex';
   space.style.alignItems = 'center';
   space.style.justifyContent = 'center';
   space.style.padding = '0 20px';
-
   const myImg = document.createElement('img');
   myImg.src = ev.link;
   myImg.style.width = '100%';
@@ -642,48 +583,39 @@ const eventsEl = document.getElementById('events');
   myImg.style.borderRadius = '12px';
   myImg.style.opacity = '0.85';
   myImg.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
-
   myImg.style.transition = 'all 0.4s';
-
-  myImg.onmouseover = function() { 
-    this.style.transform = 'scale(1.08)'; 
+  myImg.onmouseover = function() {
+    this.style.transform = 'scale(1.08)';
     this.style.opacity = '1';
-};
-myImg.style.cursor = 'zoom-in';
-myImg.onclick = function() {
+  };
+  myImg.style.cursor = 'zoom-in';
+  myImg.onclick = function() {
   document.getElementById('lbImg').src = this.src;
   document.getElementById('lightbox').classList.add('open');
-};
-myImg.onmouseout = function() { 
-  this.style.transform = 'scale(1)'; 
-  this.style.opacity = '0.85';
-};
+  };
+  myImg.onmouseout = function() {
+    this.style.transform = 'scale(1)';
+    this.style.opacity = '0.85';
+  };
   space.appendChild(myImg);
-  space.className = 'ev-space';
-
-  // Luôn chèn thứ tự chuẩn, CSS flex row-reverse sẽ lật tự động
   row.appendChild(card);
   row.appendChild(axis);
   row.appendChild(space);
-
   eventsEl.appendChild(row);
 });
-
 function buildTree() {
   const svg = document.getElementById('treeSvg');
   const tl = document.getElementById('timeline');
   const H = tl.offsetHeight;
   const W = 140;
   const cx = W / 2;
-
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('width', W);
   svg.setAttribute('height', H);
-
   svg.innerHTML = `
     <defs>
       <linearGradient id="trunkG" x1="0" y1="${H}" x2="0" y2="0" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stop-color="#1e0e06"/>
+        <stop offset="10%" stop-color="#1e0e06"/>
         <stop offset="35%" stop-color="#3d2010"/>
         <stop offset="70%" stop-color="#5c3418"/>
         <stop offset="100%" stop-color="#7a4a22"/>
@@ -694,14 +626,12 @@ function buildTree() {
       </filter>
     </defs>
   `;
-
   const trunkPath = `
     M ${cx} ${H}
     C ${cx-40} ${H*.80} ${cx+45} ${H*.60} ${cx-15} ${H*.42}
     C ${cx-50} ${H*.28} ${cx+40} ${H*.16} ${cx} ${H*.06}
     C ${cx-10} ${H*.02} ${cx} 0 ${cx} 0
   `;
-  
   const trunk = makeSvg('path');
   trunk.setAttribute('d', trunkPath);
   trunk.setAttribute('fill','none');
@@ -710,7 +640,6 @@ function buildTree() {
   trunk.setAttribute('stroke-linecap','round');
   trunk.setAttribute('stroke-linejoin','round');
   svg.appendChild(trunk);
-
   const highlight = makeSvg('path');
   highlight.setAttribute('d', trunkPath);
   highlight.setAttribute('fill','none');
@@ -718,16 +647,14 @@ function buildTree() {
   highlight.setAttribute('stroke-width','4');
   highlight.setAttribute('stroke-linecap','round');
   svg.appendChild(highlight);
-
   const cards = eventsEl.querySelectorAll('.card');
   cards.forEach((card, i) => {
     const cardTop = card.closest('.ev').offsetTop;
     const cardMid = cardTop + card.closest('.ev').offsetHeight / 2;
     const y = cardMid;
-    const side = i % 2 === 0 ? 'l' : 'r'; 
-    const dir = side === 'l' ? -1 : 1; 
-    const bLen = 48; 
-
+    const side = i % 2 === 0 ? 'l' : 'r';
+    const dir = side === 'l' ? -1 : 1;
+    const bLen = 48;
     const br = makeSvg('path');
     br.setAttribute('d', `M ${cx} ${y} Q ${cx + dir*20} ${y} ${cx + dir*bLen} ${y}`);
     br.setAttribute('fill','none');
@@ -738,9 +665,13 @@ function buildTree() {
     svg.appendChild(br);
   });
 }
-
+const bgLayer = document.querySelector('.bg-image');
+window.addEventListener('scroll', () => {
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+  let progress = window.scrollY / maxScroll;
+      bgLayer.style.transform = `translateY(${progress * -150}px)`;
+}, { passive: true });
 function makeSvg(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
-
 const treeWrap = document.getElementById('treeWrap');
 const timelineEl = document.getElementById('timeline');
 function onScroll() {
@@ -752,29 +683,19 @@ function onScroll() {
   }
 }
 window.addEventListener('scroll', onScroll, { passive: true });
-
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); revealObs.unobserve(e.target); } });
 }, { threshold: 0.12 });
 document.querySelectorAll('.card').forEach(c => revealObs.observe(c));
-
 const overlay = document.getElementById('overlay');
-const mImg    = document.getElementById('mImg');
 const mYr     = document.getElementById('mYr');
 const mTitle  = document.getElementById('mTitle');
 const mText   = document.getElementById('mText');
-const mSrc    = document.getElementById('mSrc');
-
 function openModal(i) {
   const ev = EVENTS[i];
-  mImg.src = ev.img;
-  mImg.alt = ev.title;
-  mImg.onerror = () => { mImg.parentElement.style.display = 'none'; };
-  mImg.parentElement.style.display = '';
   mYr.textContent = ev.year;
   mTitle.textContent = ev.title;
   mText.textContent = ev.full;
-  mSrc.href = ev.src;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -783,7 +704,6 @@ document.querySelectorAll('.card').forEach(c => { c.addEventListener('click', ()
 document.getElementById('closeBtn').addEventListener('click', closeModal);
 overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
 const LEAF_COLORS = ['#2d5016','#3d6820','#4a7a28','#5a9030','#1e3a0e'];
 const LEAF_SHAPES = ['M10,2 Q18,8 10,18 Q2,8 10,2','M10,1 Q20,6 16,14 Q10,20 4,14 Q0,6 10,1','M10,3 Q17,5 15,12 Q12,18 10,20 Q8,18 5,12 Q3,5 10,3'];
 function spawnLeaf() {
@@ -799,31 +719,23 @@ function spawnLeaf() {
 }
 setInterval(spawnLeaf, 2800);
 spawnLeaf(); spawnLeaf(); spawnLeaf();
-
-// Khởi chạy
-window.addEventListener('load', () => { 
-  requestAnimationFrame(() => { 
-    buildTree(); 
-    onScroll(); 
-    
-    // Tự động cuộn xuống đáy màn hình sau khi mọi thứ render xong
+window.addEventListener('load', () => {
+  requestAnimationFrame(() => {
+    buildTree();
+    onScroll();
     setTimeout(() => {
       window.scrollTo(0, document.body.scrollHeight);
     }, 150);
-  }); 
+  });
 });
-
 let resizeTimer;
-window.addEventListener('resize', () => { 
-  clearTimeout(resizeTimer); 
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     buildTree();
     window.scrollTo(0, document.body.scrollHeight);
-  }, 250); 
+  }, 250);
 });
 </script>
 </body>
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
-  <img id="lbImg" src="" alt="">
-</div>
 </html>
